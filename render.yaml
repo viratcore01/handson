@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: handwriting-backend
+    runtime: python3
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    rootDir: backend
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: CLOUDFLARE_ACCOUNT_ID
+        sync: false
+      - key: CLOUDFLARE_API_TOKEN
+        sync: false
+      - key: CLOUDFLARE_D1_DATABASE_ID
+        sync: false
+      - key: CLOUDFLARE_R2_BUCKET
+        sync: false
+      - key: CF_R2_ACCESS_KEY_ID
+        sync: false
+      - key: CF_R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+
+  - type: static
+    name: handwriting-frontend
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    rootDir: frontend
+    nodeVersion: 20
+    envVars:
+      - key: VITE_API_URL
+        sync: false

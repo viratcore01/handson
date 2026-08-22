@@ -1,0 +1,19 @@
+# Cloudflare Workers config for D1/R2 bindings.
+# The FastAPI backend runs outside Workers (Render/Vercel),
+# but wrangler.toml is used to manage D1 + R2 resources.
+#
+# Commands:
+#   wrangler d1 create handwriting-db         → creates D1, update database_id below
+#   wrangler r2 bucket create handwriting-r2  → creates R2 bucket
+#   wrangler d1 execute handwriting-db --file=./migrations/0001_initial.sql
+
+name = "handwriting-backend"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "handwriting-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "handwriting-r2"
