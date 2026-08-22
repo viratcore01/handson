@@ -135,7 +135,8 @@ def _d1_query_cloudflare(sql: str, params: list | None = None) -> list[dict]:
         data = resp.json()
     if not data.get("success"):
         raise RuntimeError(f"D1 failed: {data.get('errors')}")
-    return data.get("result", {}).get("results", [])
+    results = data.get("result", [])
+    return results[0].get("results", []) if results else []
 
 
 def _d1_insert_cloudflare(table: str, row: dict) -> dict:
