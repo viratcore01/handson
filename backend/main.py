@@ -307,6 +307,13 @@ def _extract_text_from_response(data: dict) -> Optional[str]:
         for item in data["output"]:
             if isinstance(item, dict) and item.get("type") == "text":
                 return item.get("content", "")
+    if "steps" in data:
+        for step in data["steps"]:
+            if step.get("type") == "model_output":
+                content = step.get("content", [])
+                for item in content:
+                    if isinstance(item, dict) and item.get("type") == "text":
+                        return item.get("text", "") or item.get("content", "")
     if "candidates" in data:
         try:
             return data["candidates"][0]["content"]["parts"][0]["text"]
