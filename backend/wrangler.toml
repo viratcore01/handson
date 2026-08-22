@@ -12,7 +12,7 @@ name = "handwriting-backend"
 [[d1_databases]]
 binding = "DB"
 database_name = "handwriting-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "6ede7810-26b8-4148-8187-b8686680db59"
 
 [[r2_buckets]]
 binding = "R2"
